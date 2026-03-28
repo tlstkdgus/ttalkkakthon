@@ -1,4 +1,4 @@
-# 🎉 뚝딱톤 (Ttalkkakthon)
+# 🎉 딸깍톤 (Ttalkkakthon)
 
 만우절 기념 MZ 세대 테스트 & 운세 웹 앱입니다.  
 React + TypeScript + Vite 기반으로 제작되었습니다.
