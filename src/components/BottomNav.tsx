@@ -1,107 +1,151 @@
 import { NavLink } from 'react-router-dom'
 import { BookOpen, FlaskConical, Home, Sparkles } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { nav } from '../lib/copy'
 import { appShellClass } from '../lib/shell'
 import { cn } from '../lib/cn'
 import { useEffectiveMode } from '../store/modeStore'
 
-const linkBaseExcel =
-  'flex flex-1 flex-col items-center justify-center gap-1 rounded-sm py-2.5 text-[10px] font-semibold transition-colors sm:py-3 sm:text-[11px]'
+const pages = [
+  { to: '/', end: true, Icon: Home, labelKey: 'home' as const },
+  { to: '/learn', end: false, Icon: BookOpen, labelKey: 'learn' as const },
+  { to: '/mz', end: false, Icon: FlaskConical, labelKey: 'mz' as const },
+  { to: '/fortune', end: false, Icon: Sparkles, labelKey: 'fortune' as const },
+]
 
-const activeExcel = (isActive: boolean) =>
-  cn(
-    linkBaseExcel,
-    isActive
-      ? 'bg-white text-secret-primary shadow-excel ring-1 ring-secret-border'
-      : 'text-secret-muted hover:bg-white/80 hover:text-secret-primary',
+function Clock() {
+  const [time, setTime] = useState(() =>
+    new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
   )
-
-const linkBaseWin95 =
-  'flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors sm:py-2.5 md:gap-1 md:py-3 md:text-xs'
-
-const activeWin95 = (isActive: boolean) =>
-  cn(
-    linkBaseWin95,
-    isActive
-      ? 'text-boss-primary underline decoration-2 underline-offset-2'
-      : 'text-boss-muted hover:text-boss-ink',
-  )
+  useEffect(() => {
+    const t = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }))
+    }, 15_000)
+    return () => clearInterval(t)
+  }, [])
+  return <>{time}</>
+}
 
 export function BottomNav() {
   const mode = useEffectiveMode()
   const isSecret = mode === 'secret'
 
+  /* ─── Excel 모드: 시트 탭 ─── */
+  if (isSecret) {
+    return (
+      <nav
+        className="fixed bottom-0 left-0 right-0 z-40 border-t border-secret-border bg-[#f0eeec]"
+        aria-label="주요 메뉴"
+      >
+        <div className={cn(appShellClass, 'flex items-end gap-px px-3 pt-1')}>
+          {pages.map(({ to, end, Icon, labelKey }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              className={({ isActive }) =>
+                cn(
+                  'flex items-center gap-1.5 rounded-t border border-b-0 px-3 py-1.5 text-[11px] font-medium transition-colors sm:text-xs',
+                  isActive
+                    ? 'relative z-10 -mb-px border-secret-border bg-white text-secret-primary'
+                    : 'border-transparent bg-[#e1dfdd] text-secret-muted hover:bg-[#edeae8] hover:text-secret-text',
+                )
+              }
+            >
+              <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
+              {labelKey === 'home'
+                ? nav.home
+                : labelKey === 'learn'
+                  ? nav.learn(mode)
+                  : labelKey === 'mz'
+                    ? nav.mz(mode)
+                    : nav.fortune(mode)}
+            </NavLink>
+          ))}
+          {/* 플러스 버튼 장식 */}
+          <button
+            className="mb-0.5 ml-1 flex h-6 w-6 items-center justify-center rounded text-secret-muted hover:bg-secret-border hover:text-secret-text"
+            tabIndex={-1}
+            aria-hidden
+          >
+            <span className="text-sm leading-none">+</span>
+          </button>
+        </div>
+        {/* 탭 하단 구분선 */}
+        <div className="border-t border-secret-border bg-white pb-[max(0.25rem,env(safe-area-inset-bottom))]" />
+      </nav>
+    )
+  }
+
+  /* ─── Win95/XP 모드: 태스크바 ─── */
   return (
     <nav
-      className={cn(
-        'fixed bottom-0 left-0 right-0 z-40',
-        isSecret
-          ? 'border-t border-secret-border bg-white/95 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] backdrop-blur-sm'
-          : 'win95-outset border-t-2 border-t-white bg-boss-surface',
-      )}
+      className="fixed bottom-0 left-0 right-0 z-40 bg-[#c0c0c0] win95-outset"
+      style={{ height: '40px' }}
       aria-label="주요 메뉴"
     >
       <div
-        className={cn(
-          appShellClass,
-          'flex items-stretch gap-1 px-2 pb-[max(0.4rem,env(safe-area-inset-bottom))] pt-2 sm:gap-2 sm:px-3',
-        )}
+        className={cn(appShellClass, 'flex h-full items-center gap-1 px-1')}
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        {isSecret ? (
-          <>
-            <NavLink to="/" end className={({ isActive }) => activeExcel(isActive)}>
-              <Home
-                className="h-5 w-5 md:h-6 md:w-6"
-                strokeWidth={2.25}
-                aria-hidden
-              />
-              {nav.home}
+        {/* 시작 버튼 */}
+        <button
+          className="flex h-[30px] shrink-0 items-center gap-1.5 rounded-none px-2.5 text-xs font-bold text-white"
+          style={{
+            background: 'linear-gradient(to bottom, #5ba85a 0%, #3a7a39 45%, #2e6b2d 55%, #4a8f49 100%)',
+            border: '2px solid',
+            borderColor: '#fff #404040 #404040 #fff',
+            boxShadow: '1px 1px 0 rgba(0,0,0,0.3)',
+          }}
+          tabIndex={-1}
+          aria-hidden
+        >
+          🪟 <span className="hidden sm:inline">시작</span>
+        </button>
+
+        {/* 구분선 */}
+        <div className="mx-0.5 h-[24px] w-[2px] shrink-0" style={{ borderLeft: '1px solid #808080', borderRight: '1px solid #fff' }} />
+
+        {/* 앱 탭들 */}
+        <div className="flex min-w-0 flex-1 items-center gap-1">
+          {pages.map(({ to, end, Icon, labelKey }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              className={({ isActive }) =>
+                cn(
+                  'flex h-[30px] min-w-0 flex-1 items-center gap-1.5 overflow-hidden px-2 text-[10px] font-semibold text-boss-ink sm:text-xs',
+                  isActive
+                    ? 'win95-inset bg-[#d4d0c8]'
+                    : 'win95-outset bg-[#c0c0c0] hover:bg-[#d4d0c8]',
+                )
+              }
+            >
+              <Icon className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+              <span className="truncate">
+                {labelKey === 'home'
+                  ? nav.home
+                  : labelKey === 'learn'
+                    ? nav.learn(mode)
+                    : labelKey === 'mz'
+                      ? nav.mz(mode)
+                      : nav.fortune(mode)}
+              </span>
             </NavLink>
-            <NavLink to="/learn" className={({ isActive }) => activeExcel(isActive)}>
-              <BookOpen
-                className="h-5 w-5 md:h-6 md:w-6"
-                strokeWidth={2.25}
-                aria-hidden
-              />
-              {nav.learn(mode)}
-            </NavLink>
-            <NavLink to="/mz" className={({ isActive }) => activeExcel(isActive)}>
-              <FlaskConical
-                className="h-5 w-5 md:h-6 md:w-6"
-                strokeWidth={2.25}
-                aria-hidden
-              />
-              {nav.mz(mode)}
-            </NavLink>
-            <NavLink to="/fortune" className={({ isActive }) => activeExcel(isActive)}>
-              <Sparkles
-                className="h-5 w-5 md:h-6 md:w-6"
-                strokeWidth={2.25}
-                aria-hidden
-              />
-              {nav.fortune(mode)}
-            </NavLink>
-          </>
-        ) : (
-          <>
-            <NavLink to="/" end className={({ isActive }) => activeWin95(isActive)}>
-              <Home className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.25} aria-hidden />
-              {nav.home}
-            </NavLink>
-            <NavLink to="/learn" className={({ isActive }) => activeWin95(isActive)}>
-              <BookOpen className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.25} aria-hidden />
-              {nav.learn(mode)}
-            </NavLink>
-            <NavLink to="/mz" className={({ isActive }) => activeWin95(isActive)}>
-              <FlaskConical className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.25} aria-hidden />
-              {nav.mz(mode)}
-            </NavLink>
-            <NavLink to="/fortune" className={({ isActive }) => activeWin95(isActive)}>
-              <Sparkles className="h-5 w-5 md:h-6 md:w-6" strokeWidth={2.25} aria-hidden />
-              {nav.fortune(mode)}
-            </NavLink>
-          </>
-        )}
+          ))}
+        </div>
+
+        {/* 구분선 */}
+        <div className="mx-0.5 h-[24px] w-[2px] shrink-0" style={{ borderLeft: '1px solid #808080', borderRight: '1px solid #fff' }} />
+
+        {/* 시계 */}
+        <div
+          className="flex h-[30px] shrink-0 items-center px-2 font-mono text-[10px] text-boss-ink sm:text-xs"
+          style={{ border: '1px solid #808080', background: '#c0c0c0' }}
+        >
+          <Clock />
+        </div>
       </div>
     </nav>
   )

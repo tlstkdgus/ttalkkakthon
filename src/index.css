@@ -59,4 +59,11 @@
     border-color: #404040 #fff #fff #404040;
     background: #fff;
   }
+
+  /** Win95 눌린 상태 (회색 배경) */
+  .win95-inset {
+    border: 2px solid;
+    border-color: #404040 #fff #fff #404040;
+    background: #c0c0c0;
+  }
 }
