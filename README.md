@@ -42,6 +42,9 @@ npm run dev
 <!-- COMMIT_LOG_START -->
 | 커밋 | 메시지 | 작성자 | 날짜 |
 |------|--------|--------|------|
+| 9811d4f | Merge branch 'main' of https://github.com/tlstkdgus/ttalkkakthon | tlstkdgus | 2026-03-28 |
+| ece8c7c | Readme update | tlstkdgus | 2026-03-28 |
+| d0fdac1 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | 670c694 | 이미지 추가 | tlstkdgus | 2026-03-28 |
 | 619a177 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | 9a8e64c | Rename project in README | sanghyeon shin | 2026-03-28 |
@@ -49,7 +52,4 @@ npm run dev
 | 81d7fc4 | Merge pull request #1 from tlstkdgus/copilot/update-readme-on-commit | sanghyeon shin | 2026-03-28 |
 | 3796d85 | feat: add GitHub Actions workflow to update README on every push | copilot-swe-agent[bot] | 2026-03-28 |
 | 56986d5 | Initial plan | copilot-swe-agent[bot] | 2026-03-28 |
-| 777efde | 테마 일차 수정 | tlstkdgus | 2026-03-28 |
-| 52f0595 | 반응형 적용 | tlstkdgus | 2026-03-28 |
-| 36d613a | First commit | tlstkdgus | 2026-03-28 |
 <!-- COMMIT_LOG_END -->
