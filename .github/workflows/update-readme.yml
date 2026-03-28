@@ -1,0 +1,58 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update README with latest commits
+        run: |
+          python3 - <<'PYEOF'
+          import re, subprocess
+
+          with open("README.md", "r", encoding="utf-8") as f:
+              content = f.read()
+
+          result = subprocess.run(
+              ["git", "log", "-10", "--pretty=format:| %h | %s | %an | %ad |", "--date=format:%Y-%m-%d"],
+              capture_output=True, text=True
+          )
+          rows = result.stdout.strip()
+          table = "| 커밋 | 메시지 | 작성자 | 날짜 |\n|------|--------|--------|------|\n" + rows
+
+          new_content = re.sub(
+              r"<!-- COMMIT_LOG_START -->.*?<!-- COMMIT_LOG_END -->",
+              f"<!-- COMMIT_LOG_START -->\n{table}\n<!-- COMMIT_LOG_END -->",
+              content,
+              flags=re.DOTALL
+          )
+
+          with open("README.md", "w", encoding="utf-8") as f:
+              f.write(new_content)
+
+          print("README updated successfully.")
+          PYEOF
+
+      - name: Commit and push if README changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "docs: update README with latest commits [skip ci]"
+            git push
+          fi
