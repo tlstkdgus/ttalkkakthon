@@ -4,33 +4,54 @@ export default {
   theme: {
     extend: {
       colors: {
+        /** 부장님 모드 — Win95 데스크톱 */
         boss: {
-          primary: '#7C3AED',
-          secondary: '#EC4899',
-          accent: '#F59E0B',
-          bg: '#F8FAFC',
+          primary: '#000080',
+          secondary: '#808080',
+          accent: '#000080',
+          bg: '#008080',
+          surface: '#c0c0c0',
+          ink: '#000000',
+          muted: '#404040',
+          window: '#ffffff',
+          border: '#808080',
         },
+        /** 속마음 모드 — Microsoft Excel / Office 느낌 (Fluent 그린) */
         secret: {
-          primary: '#A78BFA',
-          secondary: '#F472B6',
-          accent: '#34D399',
-          bg: '#0F172A',
-          surface: '#1E293B',
-          text: '#F1F5F9',
+          primary: '#217346',
+          ribbon: '#217346',
+          'ribbon-dark': '#185c37',
+          accent: '#107c41',
+          bg: '#f3f2f1',
+          surface: '#ffffff',
+          text: '#323130',
+          muted: '#605e5c',
+          border: '#edebe9',
+          grid: '#e1dfdd',
         },
       },
       fontFamily: {
+        jua: ['Jua', 'sans-serif'],
+        /** 엑셀/Office 본문에 가까운 산세리프 */
+        excel: [
+          '"Segoe UI"',
+          '"Segoe UI Variable"',
+          'system-ui',
+          'sans-serif',
+        ],
         sans: [
+          '"Noto Sans KR"',
           'Pretendard Variable',
           'Pretendard',
           'system-ui',
-          'Segoe UI',
           'sans-serif',
         ],
       },
       boxShadow: {
-        card: '0 10px 40px -12px rgba(15, 23, 42, 0.15)',
-        glow: '0 0 0 1px rgba(124, 58, 237, 0.2), 0 18px 50px -24px rgba(124, 58, 237, 0.35)',
+        excel: '0 1.6px 3.6px rgba(0,0,0,0.13), 0 0.3px 0.9px rgba(0,0,0,0.11)',
+        'excel-inset': 'inset 0 0 0 1px #edebe9',
+        card: '0 2px 8px rgba(0,0,0,0.06)',
+        glow: '0 2px 0 #404040',
         'glow-secret':
           '0 0 0 1px rgba(167, 139, 250, 0.25), 0 18px 50px -24px rgba(52, 211, 153, 0.2)',
       },

@@ -25,13 +25,13 @@ export function Home() {
 
   return (
     <div>
-      <div className="mb-8 text-left">
+      <div className="mb-6 text-left sm:mb-8">
         <div
           className={cn(
-            'inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold shadow-sm ring-1 sm:px-4 sm:py-1.5 sm:text-xs',
+            'inline-flex items-center gap-2 sm:gap-2.5',
             isSecret
-              ? 'bg-secret-surface/80 text-secret-primary ring-white/10'
-              : 'bg-white/70 text-boss-primary ring-boss-primary/15',
+              ? 'rounded border border-secret-border bg-white px-3 py-1.5 text-[11px] font-semibold text-secret-primary shadow-excel sm:text-xs'
+              : 'rounded-sm bg-boss-window px-3 py-1 text-[11px] font-semibold text-boss-ink ring-1 ring-boss-border sm:px-4 sm:py-1.5 sm:text-xs',
           )}
         >
           <PartyPopper className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
@@ -39,16 +39,22 @@ export function Home() {
         </div>
         <h1
           className={cn(
-            'mt-4 text-2xl font-black leading-snug tracking-tight sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight',
-            isSecret ? 'text-secret-text' : 'text-slate-900',
+            'mt-4 font-semibold leading-snug tracking-tight',
+            isSecret
+              ? 'text-xl sm:text-2xl md:text-3xl'
+              : 'text-2xl font-black sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight',
+            isSecret ? 'text-secret-text' : 'text-boss-ink',
           )}
         >
           {home.heroTitle(mode)}
         </h1>
         <p
           className={cn(
-            'mt-2 max-w-3xl text-sm leading-relaxed sm:text-base md:text-lg',
-            isSecret ? 'text-slate-400' : 'text-slate-600',
+            'mt-2 max-w-3xl leading-relaxed',
+            isSecret
+              ? 'text-xs sm:text-sm md:text-base'
+              : 'text-sm sm:text-base md:text-lg',
+            isSecret ? 'text-secret-muted' : 'text-boss-muted',
           )}
         >
           {home.heroSub(mode)}
@@ -66,22 +72,29 @@ export function Home() {
             <Link
               to={c.to}
               className={cn(
-                'flex min-h-[5.5rem] items-center justify-between rounded-2xl px-4 py-4 shadow-card transition-transform active:scale-[0.99] md:min-h-[6rem] md:rounded-3xl md:px-5 md:py-5 lg:min-h-0',
+                'flex min-h-[5.5rem] items-center justify-between px-4 py-4 transition-all active:scale-[0.99] md:min-h-[6rem] md:px-5 md:py-5 lg:min-h-0',
                 isSecret
-                  ? 'bg-secret-surface text-secret-text ring-1 ring-white/10 shadow-glow-secret'
-                  : 'bg-white text-slate-900 ring-1 ring-slate-200/80 shadow-glow',
+                  ? 'rounded-sm border border-secret-border bg-white text-secret-text shadow-excel hover:border-secret-primary/40 hover:shadow-md'
+                  : 'win95-inset-white rounded-sm text-boss-ink shadow-md md:rounded-md',
               )}
             >
-              <div className="flex items-start gap-3 text-left">
+              <div className="flex items-start gap-3 text-left sm:gap-3">
                 <span className="text-2xl md:text-3xl" aria-hidden>
                   {c.emoji}
                 </span>
                 <div>
-                  <p className="text-base font-bold md:text-lg">{c.title}</p>
+                  <p
+                    className={cn(
+                      'font-semibold',
+                      isSecret ? 'text-base md:text-lg' : 'text-base md:text-lg',
+                    )}
+                  >
+                    {c.title}
+                  </p>
                   <p
                     className={cn(
                       'mt-0.5 text-xs md:text-sm',
-                      isSecret ? 'text-slate-400' : 'text-slate-500',
+                      isSecret ? 'text-secret-muted' : 'text-boss-muted',
                     )}
                   >
                     {c.desc}
@@ -91,7 +104,7 @@ export function Home() {
               <ArrowRight
                 className={cn(
                   'h-5 w-5 shrink-0 md:h-6 md:w-6',
-                  isSecret ? 'text-secret-accent' : 'text-boss-primary',
+                  isSecret ? 'text-secret-primary' : 'text-boss-primary',
                 )}
                 aria-hidden
               />

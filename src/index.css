@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 @tailwind base;
@@ -11,5 +12,51 @@
 
   body {
     @apply min-h-[100dvh] overflow-x-hidden antialiased;
+  }
+}
+
+@layer components {
+  /** Excel 시트 배경 — Office 회색 + 은은한 셀 그리드 */
+  .excel-bg {
+    background-color: #f3f2f1;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 14px 14px;
+    background-attachment: fixed;
+  }
+
+  /** 통합 문서 창 — 흰 시트 + Fluent 그림자 */
+  .excel-panel {
+    border-radius: 2px;
+    border: 1px solid #edebe9;
+    background: #ffffff;
+    box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+  }
+
+  /** 리본 상단 그린 바 */
+  .excel-ribbon {
+    background: linear-gradient(180deg, #217346 0%, #185c37 100%);
+    border-bottom: 1px solid #104d2c;
+  }
+
+  /** Win95 창 외곽 */
+  .win95-window {
+    border: 2px solid;
+    border-color: #dfdfdf #404040 #404040 #dfdfdf;
+    background: #c0c0c0;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .win95-outset {
+    border: 2px solid;
+    border-color: #fff #404040 #404040 #fff;
+    background: #c0c0c0;
+  }
+
+  .win95-inset-white {
+    border: 2px solid;
+    border-color: #404040 #fff #fff #404040;
+    background: #fff;
   }
 }
