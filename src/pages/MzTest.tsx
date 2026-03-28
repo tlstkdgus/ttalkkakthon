@@ -6,6 +6,7 @@ import {
   getQuizQuestions,
   type QuizQuestion,
 } from '../lib/quiz'
+import { pickResultImage } from '../lib/hardcodedContent'
 import { cn } from '../lib/cn'
 import type { AppMode } from '../store/modeStore'
 import { useEffectiveMode } from '../store/modeStore'
@@ -22,7 +23,9 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
 
   const result = useMemo(() => {
     if (!done) return null
-    return computeMzResult(mode, answers)
+    const r = computeMzResult(mode, answers)
+    const ctx = r.bucket === 'low' ? 'quiz_good' : r.bucket === 'mid' ? 'quiz_mid' : 'quiz_bad'
+    return { ...r, image: pickResultImage(mode, ctx) }
   }, [answers, done, mode])
 
   function pick(optionIndex: number) {
@@ -44,10 +47,9 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
     <section className="text-left md:mx-auto md:max-w-3xl lg:max-w-4xl">
       <h1
         className={cn(
-          'font-semibold',
           isSecret
-            ? 'text-xl md:text-2xl'
-            : 'text-xl font-black md:text-2xl lg:text-3xl',
+            ? 'font-semibold text-xl md:text-2xl'
+            : 'text-2xl md:text-3xl lg:text-4xl',
           isSecret ? 'text-secret-text' : 'text-boss-ink',
         )}
       >
@@ -115,49 +117,66 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
       {done && result && (
         <div
           className={cn(
-            'mt-6 p-4 md:p-5',
+            'mt-6 overflow-hidden',
             isSecret
               ? 'rounded-sm border border-secret-border bg-white shadow-excel'
               : 'win95-inset-white rounded-sm',
           )}
         >
-          <p
+          {/* 결과 밈 이미지 */}
+          <div
             className={cn(
-              'text-xs font-semibold md:text-sm',
-              isSecret ? 'text-secret-primary' : 'text-boss-primary',
+              'flex items-center justify-center overflow-hidden bg-black/5',
+              isSecret ? 'border-b border-secret-border' : 'border-b-2 border-b-[#404040]',
             )}
+            style={{ maxHeight: '220px' }}
           >
-            {result.scoreLabel}
-          </p>
-          <p
-            className={cn(
-              'mt-2 text-lg font-semibold md:text-xl',
-              isSecret ? 'text-secret-text' : 'text-boss-ink',
-            )}
-          >
-            {result.title}
-          </p>
-          <p
-            className={cn(
-              'mt-2 text-sm leading-relaxed md:text-base',
-              isSecret ? 'text-secret-muted' : 'text-boss-muted',
-            )}
-          >
-            {result.body}
-          </p>
-          <button
-            type="button"
-            onClick={reset}
-            className={cn(
-              'mt-5 inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold md:px-5 md:py-2.5 md:text-sm',
-              isSecret
-                ? 'rounded-sm border border-secret-border bg-white text-secret-primary shadow-excel hover:bg-[#faf9f8]'
-                : 'win95-outset rounded-sm text-boss-ink hover:bg-gray-300',
-            )}
-          >
-            <RotateCcw className="h-4 w-4" aria-hidden />
-            {mz.retry}
-          </button>
+            <img
+              src={result.image}
+              alt="결과 밈"
+              className="max-h-[220px] w-full object-contain"
+              loading="lazy"
+            />
+          </div>
+          <div className="p-4 md:p-5">
+            <p
+              className={cn(
+                'text-xs font-semibold md:text-sm',
+                isSecret ? 'text-secret-primary' : 'text-boss-primary',
+              )}
+            >
+              {result.scoreLabel}
+            </p>
+            <p
+              className={cn(
+                'mt-2 text-lg font-semibold md:text-xl',
+                isSecret ? 'text-secret-text' : 'text-boss-ink',
+              )}
+            >
+              {result.title}
+            </p>
+            <p
+              className={cn(
+                'mt-2 text-sm leading-relaxed md:text-base',
+                isSecret ? 'text-secret-muted' : 'text-boss-muted',
+              )}
+            >
+              {result.body}
+            </p>
+            <button
+              type="button"
+              onClick={reset}
+              className={cn(
+                'mt-5 inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold md:px-5 md:py-2.5 md:text-sm',
+                isSecret
+                  ? 'rounded-sm border border-secret-border bg-white text-secret-primary shadow-excel hover:bg-[#faf9f8]'
+                  : 'win95-outset rounded-sm text-boss-ink hover:bg-gray-300',
+              )}
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden />
+              {mz.retry}
+            </button>
+          </div>
         </div>
       )}
     </section>

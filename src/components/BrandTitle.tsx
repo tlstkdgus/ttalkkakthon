@@ -52,16 +52,16 @@ export function BrandTitle() {
           : 'focus-visible:ring-2 focus-visible:ring-white/70',
         isExcelSecret
           ? 'text-white hover:text-white/90'
-          : 'text-boss-ink hover:text-boss-primary',
+          : 'text-white hover:text-white/90',
       )}
       aria-label={`${brand.name}, 홈으로 이동`}
     >
       <span
         className={cn(
-          'font-semibold tracking-tight',
+          'tracking-tight',
           isExcelSecret
-            ? 'text-lg sm:text-xl md:text-2xl'
-            : 'text-lg md:text-xl lg:text-2xl',
+            ? 'font-semibold text-lg sm:text-xl md:text-2xl'
+            : 'text-xl sm:text-2xl md:text-3xl',
         )}
       >
         {brand.name}
@@ -71,7 +71,7 @@ export function BrandTitle() {
           'ml-1.5 align-middle text-[10px] font-medium',
           isExcelSecret
             ? 'rounded-sm border border-white/30 bg-white/15 px-1.5 py-0.5 text-white/95'
-            : 'rounded-sm bg-boss-window px-1.5 py-0.5 text-boss-muted ring-1 ring-boss-border md:text-xs',
+            : 'rounded-sm border border-white/40 bg-white/20 px-1.5 py-0.5 text-white/90 md:text-xs',
         )}
       >
         beta

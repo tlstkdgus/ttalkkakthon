@@ -8,6 +8,7 @@ export interface QuizResult {
   title: string
   body: string
   scoreLabel: string
+  bucket: 'low' | 'mid' | 'high'
 }
 
 const bossQuestions: QuizQuestion[] = [
@@ -131,14 +132,17 @@ export function computeMzResult(
       low: {
         title: 'MZ력: 안정형',
         body: '당신은 회의실의 평형추. 무리하지 않는 선택이 곧 장기 프로젝트의 완성입니다.',
+        bucket: 'low',
       },
       mid: {
         title: 'MZ력: 성장형',
         body: '적당히 밀고, 적당히 빼는 타입. 슬랙 이모지 운용 능력이 핵심 자산입니다.',
+        bucket: 'mid',
       },
       high: {
         title: 'MZ력: 하이퍼',
         body: '에너지가 넘칩니다. 다만 “한 번만” 요청 앞에서 숨 고르기도 잊지 마세요.',
+        bucket: 'high',
       },
     }
     return {
@@ -152,14 +156,17 @@ export function computeMzResult(
       low: {
         title: '꼰대 지수: 낮음 (의심)',
         body: '너무 깨끗하면 오히려 무서워요. 혹시… 팀의 은밀한 중재자?',
+        bucket: 'low',
       },
       mid: {
         title: '꼰대 지수: 보통 (인간)',
         body: '가끔은 밈으로 방어하고, 가끔은 침묵으로 승부하는 현실적인 타입.',
+        bucket: 'mid',
       },
       high: {
         title: '꼰대 지수: 높음 (자각 있음)',
         body: '이미 알고 계시죠? 오늘은 “네 알겠습니다”로 데미지를 최소화하세요.',
+        bucket: 'high',
       },
     }
   return {

@@ -1,27 +1,26 @@
 import { useState } from 'react'
 import { Wand2 } from 'lucide-react'
 import { learn } from '../lib/copy'
-import { pickLearnLine } from '../lib/hardcodedContent'
+import { type ContentCard, pickLearnCard } from '../lib/hardcodedContent'
 import { cn } from '../lib/cn'
 import { useEffectiveMode } from '../store/modeStore'
 
 export function Learn() {
   const mode = useEffectiveMode()
   const isSecret = mode === 'secret'
-  const [text, setText] = useState('')
+  const [card, setCard] = useState<ContentCard | null>(null)
 
   function onPick() {
-    setText(pickLearnLine(mode))
+    setCard(pickLearnCard(mode))
   }
 
   return (
     <section className="text-left md:mx-auto md:max-w-3xl lg:max-w-4xl">
       <h1
         className={cn(
-          'font-semibold',
           isSecret
-            ? 'text-xl md:text-2xl'
-            : 'text-xl font-black md:text-2xl lg:text-3xl',
+            ? 'font-semibold text-xl md:text-2xl'
+            : 'text-2xl md:text-3xl lg:text-4xl',
           isSecret ? 'text-secret-text' : 'text-boss-ink',
         )}
       >
@@ -41,9 +40,9 @@ export function Learn() {
         type="button"
         onClick={onPick}
         className={cn(
-          'mt-6 inline-flex w-full max-w-md items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition active:scale-[0.99] md:max-w-lg md:text-base',
+          'mt-6 inline-flex w-full max-w-[500px] items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition active:scale-[0.99] md:text-base',
           isSecret
-            ? 'rounded-sm border border-transparent bg-secret-primary text-white shadow-excel hover:bg-[#185c37]'
+            ? 'rounded-sm border border-[#c6e0b4] bg-gradient-to-b from-[#e2efd9] to-[#c6e0b4] text-[#375623] shadow-excel hover:brightness-95'
             : 'win95-outset rounded-sm text-boss-ink hover:bg-gray-300',
         )}
       >
@@ -51,20 +50,47 @@ export function Learn() {
         {learn.cta(mode)}
       </button>
 
+      {/* 결과 카드 */}
       <div
         className={cn(
-          'mt-5 min-h-[160px] p-4 text-sm leading-relaxed whitespace-pre-wrap md:min-h-[180px] md:p-5 md:text-base',
+          'mt-5 w-full max-w-[500px] overflow-hidden',
           isSecret
-            ? 'rounded-sm border border-secret-border bg-white text-secret-text shadow-excel-inset'
-            : 'win95-inset-white rounded-sm text-boss-ink',
+            ? 'rounded-sm border border-secret-border bg-white shadow-excel'
+            : 'win95-inset-white rounded-sm',
         )}
       >
-        {text || (
-          <span className={isSecret ? 'text-secret-muted' : 'text-boss-muted'}>
-            {isSecret
-              ? '버튼을 누르면 미리 적어둔 카드가 랜덤으로 뜹니다. (API 비용 0원)'
-              : '버튼을 누르면 미리 적어둔 밈 카드가 랜덤으로 뜹니다. (API 비용 0원)'}
-          </span>
+        {card ? (
+          <>
+            {/* 밈 이미지 */}
+            <div
+              className={cn(
+                'flex h-[280px] items-center justify-center overflow-hidden bg-white',
+                isSecret ? 'border-b border-secret-border' : 'border-b-2 border-b-[#404040] border-r-2 border-r-[#404040]',
+              )}
+            >
+              <img
+                key={card.image}
+                src={card.image}
+                alt="밈 이미지"
+                className="h-full w-full object-contain"
+                loading="lazy"
+              />
+            </div>
+            {/* 텍스트 설명 */}
+            <div className="p-4 text-sm leading-relaxed whitespace-pre-wrap md:p-5 md:text-base">
+              <span className={isSecret ? 'text-secret-text' : 'text-boss-ink'}>
+                {card.text}
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="min-h-[160px] p-4 md:min-h-[180px] md:p-5">
+            <span className={cn('text-sm', isSecret ? 'text-secret-muted' : 'text-boss-muted')}>
+              {isSecret
+                ? '버튼을 누르면 밈 이미지와 카드가 랜덤으로 뜹니다.'
+                : '버튼을 누르면 밈 이미지와 카드가 랜덤으로 뜹니다.'}
+            </span>
+          </div>
         )}
       </div>
     </section>

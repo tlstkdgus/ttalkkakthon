@@ -1,9 +1,11 @@
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, PartyPopper } from 'lucide-react'
 import { home } from '../lib/copy'
 import { cn } from '../lib/cn'
 import { useEffectiveMode } from '../store/modeStore'
+import { pickMemeImages } from '../lib/memes'
 
 const container = {
   hidden: { opacity: 0 },
@@ -22,6 +24,7 @@ export function Home() {
   const mode = useEffectiveMode()
   const isSecret = mode === 'secret'
   const cards = home.cards(mode)
+  const thumbs = useMemo(() => pickMemeImages(mode, cards.length, 'home'), [mode, cards.length])
 
   return (
     <div>
@@ -39,10 +42,10 @@ export function Home() {
         </div>
         <h1
           className={cn(
-            'mt-4 font-semibold leading-snug tracking-tight',
+            'mt-4 leading-snug tracking-tight',
             isSecret
-              ? 'text-xl sm:text-2xl md:text-3xl'
-              : 'text-2xl font-black sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight',
+              ? 'font-semibold text-xl sm:text-2xl md:text-3xl'
+              : 'text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] lg:leading-tight',
             isSecret ? 'text-secret-text' : 'text-boss-ink',
           )}
         >
@@ -67,47 +70,48 @@ export function Home() {
         initial="hidden"
         animate="show"
       >
-        {cards.map((c) => (
+        {cards.map((c, i) => (
           <motion.li key={c.to} variants={item}>
             <Link
               to={c.to}
               className={cn(
-                'flex min-h-[5.5rem] items-center justify-between px-4 py-4 transition-all active:scale-[0.99] md:min-h-[6rem] md:px-5 md:py-5 lg:min-h-0',
+                'flex flex-col overflow-hidden transition-all active:scale-[0.99]',
                 isSecret
                   ? 'rounded-sm border border-secret-border bg-white text-secret-text shadow-excel hover:border-secret-primary/40 hover:shadow-md'
-                  : 'win95-inset-white rounded-sm text-boss-ink shadow-md md:rounded-md',
+                  : 'text-boss-ink hover:shadow-[4px_4px_0_rgba(0,0,0,0.35)]',
               )}
             >
-              <div className="flex items-start gap-3 text-left sm:gap-3">
-                <span className="text-2xl md:text-3xl" aria-hidden>
-                  {c.emoji}
-                </span>
-                <div>
-                  <p
-                    className={cn(
-                      'font-semibold',
-                      isSecret ? 'text-base md:text-lg' : 'text-base md:text-lg',
-                    )}
-                  >
-                    {c.title}
-                  </p>
-                  <p
-                    className={cn(
-                      'mt-0.5 text-xs md:text-sm',
-                      isSecret ? 'text-secret-muted' : 'text-boss-muted',
-                    )}
-                  >
-                    {c.desc}
-                  </p>
-                </div>
+              {/* 썸네일 이미지 */}
+              <div className={cn(
+                'aspect-square w-full overflow-hidden bg-white',
+                isSecret ? 'border-b border-secret-border' : '',
+              )}>
+                <img
+                  src={thumbs[i]}
+                  alt=""
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                  aria-hidden
+                />
               </div>
-              <ArrowRight
-                className={cn(
-                  'h-5 w-5 shrink-0 md:h-6 md:w-6',
-                  isSecret ? 'text-secret-primary' : 'text-boss-primary',
-                )}
-                aria-hidden
-              />
+              {/* 카드 하단 */}
+              <div className="flex items-center justify-between px-4 py-3 md:px-5 md:py-4">
+                <div className="flex items-start gap-3 text-left">
+                  <span className="text-2xl md:text-3xl" aria-hidden>
+                    {c.emoji}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-base md:text-lg">{c.title}</p>
+                    <p className={cn('mt-0.5 text-xs md:text-sm', isSecret ? 'text-secret-muted' : 'text-boss-muted')}>
+                      {c.desc}
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight
+                  className={cn('h-5 w-5 shrink-0 md:h-6 md:w-6', isSecret ? 'text-secret-primary' : 'text-boss-primary')}
+                  aria-hidden
+                />
+              </div>
             </Link>
           </motion.li>
         ))}

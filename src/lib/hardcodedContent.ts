@@ -1,6 +1,12 @@
 import type { AppMode } from '../store/modeStore'
+import { pickMemeImage, type MemeContext } from './memes'
 
 /** API 없이 돌리기 위한 미리 쓴 문구 (버튼 누를 때마다 랜덤) */
+
+export type ContentCard = {
+  text: string
+  image: string  // /memes/... 경로
+}
 
 const learnBoss: string[] = [
   `【오늘의 밈】 "검토 한 번만 부탁드립니다"\n실제 의미: 일단 넘기고 싶다.\n사용 맥락: 메일 마지막 한 줄, 톤은 공손하게.\n주의: 진짜로 안 읽히면 역공 당할 수 있음.`,
@@ -40,10 +46,23 @@ function pick<T>(items: T[]): T {
   return items[Math.floor(Math.random() * items.length)]!
 }
 
-export function pickLearnLine(mode: AppMode): string {
-  return pick(mode === 'boss' ? learnBoss : learnSecret)
+/** 밈 배우기 카드 (텍스트 + 랜덤 이미지) */
+export function pickLearnCard(mode: AppMode): ContentCard {
+  return {
+    text: pick(mode === 'boss' ? learnBoss : learnSecret),
+    image: pickMemeImage(mode, 'learn'),
+  }
 }
 
-export function pickFortuneLine(mode: AppMode): string {
-  return pick(mode === 'boss' ? fortuneBoss : fortuneSecret)
+/** 운세 카드 (텍스트 + 랜덤 이미지) */
+export function pickFortuneCard(mode: AppMode): ContentCard {
+  return {
+    text: pick(mode === 'boss' ? fortuneBoss : fortuneSecret),
+    image: pickMemeImage(mode, 'fortune'),
+  }
+}
+
+/** 퀴즈 결과용 밈 이미지만 반환 */
+export function pickResultImage(mode: AppMode, context: MemeContext): string {
+  return pickMemeImage(mode, context)
 }

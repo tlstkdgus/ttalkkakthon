@@ -1,6 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
+@font-face {
+  font-family: 'RoundedFixedsys';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'YunChorokwoosanEoriniMinguk';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaMinGuk.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,12 +54,25 @@
     border-bottom: 1px solid #104d2c;
   }
 
+  /** 부장님 모드 데스크톱 배경 — teal + CRT 스캔라인 */
+  .boss-desktop {
+    background-color: #008080;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.04) 2px,
+        rgba(0, 0, 0, 0.04) 3px
+      );
+  }
+
   /** Win95 창 외곽 */
   .win95-window {
     border: 2px solid;
     border-color: #dfdfdf #404040 #404040 #dfdfdf;
     background: #c0c0c0;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
   }
 
   .win95-outset {

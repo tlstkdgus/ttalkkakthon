@@ -32,14 +32,17 @@ export default {
       },
       fontFamily: {
         jua: ['Jua', 'sans-serif'],
+        gungsuh: ['"YunChorokwoosanEoriniMinguk"', 'serif'],
         /** 엑셀/Office 본문에 가까운 산세리프 */
         excel: [
+          '"YunChorokwoosanEoriniMinguk"',
           '"Segoe UI"',
           '"Segoe UI Variable"',
           'system-ui',
           'sans-serif',
         ],
         sans: [
+          '"YunChorokwoosanEoriniMinguk"',
           '"Noto Sans KR"',
           'Pretendard Variable',
           'Pretendard',
