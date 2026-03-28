@@ -30,6 +30,8 @@ npm run dev
 <!-- COMMIT_LOG_START -->
 | 커밋 | 메시지 | 작성자 | 날짜 |
 |------|--------|--------|------|
+| 670c694 | 이미지 추가 | tlstkdgus | 2026-03-28 |
+| 619a177 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | 9a8e64c | Rename project in README | sanghyeon shin | 2026-03-28 |
 | 734166a | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | 81d7fc4 | Merge pull request #1 from tlstkdgus/copilot/update-readme-on-commit | sanghyeon shin | 2026-03-28 |
