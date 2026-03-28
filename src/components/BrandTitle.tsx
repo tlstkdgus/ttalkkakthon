@@ -53,10 +53,12 @@ export function BrandTitle() {
       )}
       aria-label={`${brand.name}, 홈으로 이동`}
     >
-      <span className="text-lg font-extrabold tracking-tight">{brand.name}</span>
+      <span className="text-lg font-extrabold tracking-tight md:text-xl lg:text-2xl">
+        {brand.name}
+      </span>
       <span
         className={cn(
-          'ml-1.5 align-middle text-[10px] font-medium uppercase tracking-wider',
+          'ml-1.5 align-middle text-[10px] font-medium uppercase tracking-wider md:text-xs',
           mode === 'secret' ? 'text-secret-secondary' : 'text-boss-secondary',
         )}
       >

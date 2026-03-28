@@ -10,6 +10,6 @@
   }
 
   body {
-    @apply min-h-[100dvh] antialiased;
+    @apply min-h-[100dvh] overflow-x-hidden antialiased;
   }
 }

@@ -28,18 +28,18 @@ export function Home() {
       <div className="mb-8 text-left">
         <div
           className={cn(
-            'inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold shadow-sm ring-1',
+            'inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold shadow-sm ring-1 sm:px-4 sm:py-1.5 sm:text-xs',
             isSecret
               ? 'bg-secret-surface/80 text-secret-primary ring-white/10'
               : 'bg-white/70 text-boss-primary ring-boss-primary/15',
           )}
         >
-          <PartyPopper className="h-4 w-4" aria-hidden />
+          <PartyPopper className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
           만우절 주의: 진지한 척합니다
         </div>
         <h1
           className={cn(
-            'mt-4 text-2xl font-black leading-snug tracking-tight',
+            'mt-4 text-2xl font-black leading-snug tracking-tight sm:text-3xl md:text-4xl lg:text-[2.75rem] lg:leading-tight',
             isSecret ? 'text-secret-text' : 'text-slate-900',
           )}
         >
@@ -47,7 +47,7 @@ export function Home() {
         </h1>
         <p
           className={cn(
-            'mt-2 text-sm leading-relaxed',
+            'mt-2 max-w-3xl text-sm leading-relaxed sm:text-base md:text-lg',
             isSecret ? 'text-slate-400' : 'text-slate-600',
           )}
         >
@@ -56,7 +56,7 @@ export function Home() {
       </div>
 
       <motion.ul
-        className="space-y-3"
+        className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-4 lg:gap-5 xl:grid-cols-3"
         variants={container}
         initial="hidden"
         animate="show"
@@ -66,21 +66,21 @@ export function Home() {
             <Link
               to={c.to}
               className={cn(
-                'flex items-center justify-between rounded-2xl px-4 py-4 shadow-card transition-transform active:scale-[0.99]',
+                'flex min-h-[5.5rem] items-center justify-between rounded-2xl px-4 py-4 shadow-card transition-transform active:scale-[0.99] md:min-h-[6rem] md:rounded-3xl md:px-5 md:py-5 lg:min-h-0',
                 isSecret
                   ? 'bg-secret-surface text-secret-text ring-1 ring-white/10 shadow-glow-secret'
                   : 'bg-white text-slate-900 ring-1 ring-slate-200/80 shadow-glow',
               )}
             >
               <div className="flex items-start gap-3 text-left">
-                <span className="text-2xl" aria-hidden>
+                <span className="text-2xl md:text-3xl" aria-hidden>
                   {c.emoji}
                 </span>
                 <div>
-                  <p className="text-base font-bold">{c.title}</p>
+                  <p className="text-base font-bold md:text-lg">{c.title}</p>
                   <p
                     className={cn(
-                      'mt-0.5 text-xs',
+                      'mt-0.5 text-xs md:text-sm',
                       isSecret ? 'text-slate-400' : 'text-slate-500',
                     )}
                   >
@@ -90,7 +90,7 @@ export function Home() {
               </div>
               <ArrowRight
                 className={cn(
-                  'h-5 w-5 shrink-0',
+                  'h-5 w-5 shrink-0 md:h-6 md:w-6',
                   isSecret ? 'text-secret-accent' : 'text-boss-primary',
                 )}
                 aria-hidden
