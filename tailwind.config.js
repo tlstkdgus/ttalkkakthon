@@ -32,6 +32,7 @@ export default {
       },
       fontFamily: {
         jua: ['Jua', 'sans-serif'],
+
         gungsuh: ['"YunChorokwoosanEoriniMinguk"', 'serif'],
         /** 엑셀/Office 본문에 가까운 산세리프 — 속마음 테마 폰트: RFjunwooo (RF대충쓴준우체v3) */
         excel: [
@@ -41,8 +42,11 @@ export default {
           'system-ui',
           'sans-serif',
         ],
+        gungsuh: ['RoundedFixedsys', 'monospace'],
+        /** 속마음 모드 폰트 */
+        excel: ['"YoonChildfundkoreaManSeh"', 'sans-serif'],
+
         sans: [
-          '"YunChorokwoosanEoriniMinguk"',
           '"Noto Sans KR"',
           'Pretendard Variable',
           'Pretendard',

@@ -65,7 +65,7 @@ export function Learn() {
             <div
               className={cn(
                 'flex h-[280px] items-center justify-center overflow-hidden bg-white',
-                isSecret ? 'border-b border-secret-border' : 'border-b-2 border-b-[#404040] border-r-2 border-r-[#404040]',
+                isSecret ? 'border-b border-secret-border' : 'border-b-2 border-b-[#404040]',
               )}
             >
               <img

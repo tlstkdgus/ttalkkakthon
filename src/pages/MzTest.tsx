@@ -68,7 +68,7 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
       {!done && q && (
         <div
           className={cn(
-            'mt-6 p-4 md:p-5',
+            'mt-6 w-full max-w-[500px] p-4 md:p-5',
             isSecret
               ? 'rounded-sm border border-secret-border bg-white shadow-excel'
               : 'win95-inset-white rounded-sm',
@@ -117,7 +117,7 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
       {done && result && (
         <div
           className={cn(
-            'mt-6 overflow-hidden',
+            'mt-6 w-full max-w-[500px] overflow-hidden',
             isSecret
               ? 'rounded-sm border border-secret-border bg-white shadow-excel'
               : 'win95-inset-white rounded-sm',
@@ -126,15 +126,14 @@ function MzQuizSession({ mode }: { mode: AppMode }) {
           {/* 결과 밈 이미지 */}
           <div
             className={cn(
-              'flex items-center justify-center overflow-hidden bg-black/5',
+              'flex h-[280px] items-center justify-center overflow-hidden bg-white',
               isSecret ? 'border-b border-secret-border' : 'border-b-2 border-b-[#404040]',
             )}
-            style={{ maxHeight: '220px' }}
           >
             <img
               src={result.image}
               alt="결과 밈"
-              className="max-h-[220px] w-full object-contain"
+              className="h-full w-full object-contain"
               loading="lazy"
             />
           </div>
