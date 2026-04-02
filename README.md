@@ -43,14 +43,14 @@ npm run dev
 <!-- COMMIT_LOG_START -->
 | 커밋 | 메시지 | 작성자 | 날짜 |
 |------|--------|--------|------|
+| ab391c0 | Merge pull request #3 from tlstkdgus/copilot/apply-font-to-inner-mind-theme | sanghyeon shin | 2026-04-02 |
+| ab8a858 | Merge branch 'main' into copilot/apply-font-to-inner-mind-theme | sanghyeon shin | 2026-04-02 |
+| afcce27 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | a0989a2 | 수정 | tlstkdgus | 2026-03-28 |
+| 72b0903 | Apply RFjunwooo font from noonnu.cc/font_page/1431 to 속마음 theme | copilot-swe-agent[bot] | 2026-03-28 |
+| 05a9039 | Initial plan | copilot-swe-agent[bot] | 2026-03-28 |
 | 1f3f01b | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | abdfa16 | 2차 수정 | tlstkdgus | 2026-03-28 |
 | c001ec4 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
 | 9811d4f | Merge branch 'main' of https://github.com/tlstkdgus/ttalkkakthon | tlstkdgus | 2026-03-28 |
-| ece8c7c | Readme update | tlstkdgus | 2026-03-28 |
-| d0fdac1 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
-| 670c694 | 이미지 추가 | tlstkdgus | 2026-03-28 |
-| 619a177 | docs: update README with latest commits [skip ci] | github-actions[bot] | 2026-03-28 |
-| 9a8e64c | Rename project in README | sanghyeon shin | 2026-03-28 |
 <!-- COMMIT_LOG_END -->
